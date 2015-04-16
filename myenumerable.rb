@@ -49,6 +49,15 @@ module Enumerable
 			return true
 		end
 	end
+	def my_none?
+		return true unless block_given?
+		self.my_each do |i|
+			if yield(i)
+				return false
+			end
+		end
+		return true
+	end
 
 end
 
@@ -73,10 +82,14 @@ string_array.my_all? do |num|
 	num.length >= 3
 end
 
-=end
+
 
 if test_array.my_any? do |num|
 	num == 7
 end
-	print "ok"
+
+if string_array.my_none? do |num|
+	num.length>3
 end
+
+=end
