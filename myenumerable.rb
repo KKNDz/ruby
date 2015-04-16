@@ -15,15 +15,6 @@ module Enumerable
 		end
 	end
 
-=begin
-	def my_select
-		return self unless block_given?
-		for i in 0..length
-			yield(self[i]==x)
-		end
-	end
-=end
-
 	def my_select
 		return self unless block_given?
 		new_array = []
@@ -36,6 +27,15 @@ module Enumerable
 		print new_array
 	end
 
+	def my_all?
+		return false unless block_given?
+		self.my_each do |i|
+			if !yield(i)
+				return false
+			end
+		end
+		return true
+	end
 
 
 
@@ -43,17 +43,24 @@ module Enumerable
 
 end
 
+test_array = [7,1,2,3,4,5]
 
-[7,1,2,3,4,5].my_each do |i|
+=begin
+test_array.my_each do |i|
 	puts "#{i}"
 end
 
-
-[1,2,3,4,5,6].my_each_with_index do |i,index|
+test_array.my_each_with_index do |i,index|
 	puts "#{index}-> #{i} "
 end
 
-		
-[7,2,3,4,5,6].my_select do |num,array|
-	num %1 == 0
+=end		
+test_array.my_select do |num|
+	num < 3
 end
+
+if test_array.my_all? do |num|
+	num >= 1
+end
+	print "oi"
+	end
