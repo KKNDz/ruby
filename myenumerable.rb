@@ -59,6 +59,17 @@ module Enumerable
 		return true
 	end
 
+	def my_count
+		return print self.size unless block_given?
+		counter = 0
+		self.my_each do |i|
+			if yield(i)
+				counter +=1
+			end
+		end
+		return print counter
+	end
+
 end
 
 test_array = [7,1,2,3,4,5]
@@ -93,3 +104,7 @@ if string_array.my_none? do |num|
 end
 
 =end
+
+test_array.my_count do |i|
+	i==2
+end
