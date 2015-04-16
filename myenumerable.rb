@@ -37,13 +37,23 @@ module Enumerable
 		return true
 	end
 
-
-
-
+	def my_any?
+		if block_given?
+			self.my_each do |i|
+				if yield(i)
+					return true
+				end
+			end
+			return false
+		else
+			return true
+		end
+	end
 
 end
 
 test_array = [7,1,2,3,4,5]
+string_array = ["jaja","ola","hola"]
 
 =begin
 test_array.my_each do |i|
@@ -54,13 +64,19 @@ test_array.my_each_with_index do |i,index|
 	puts "#{index}-> #{i} "
 end
 
-=end		
+
 test_array.my_select do |num|
 	num < 3
 end
 
-if test_array.my_all? do |num|
-	num >= 1
+string_array.my_all? do |num|
+	num.length >= 3
 end
-	print "oi"
-	end
+
+=end
+
+if test_array.my_any? do |num|
+	num == 7
+end
+	print "ok"
+end
