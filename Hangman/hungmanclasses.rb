@@ -61,16 +61,40 @@ class Jogo
 		@palavra.each do |i|
 			@palavraJogador << "_"
 		end
+		@erros = []
 		#print @palavra
 		#print @palavraJogador
 	end
 
 	def jogada(x)
-
+		achou = false
 		@palavra.each_with_index do |letra,index|
 			if x == letra
 				@palavraJogador[index] = x
+				achou = true
 			end
+		end
+		if achou == false
+			erros(x)
+		end
+	end
+	def getPc
+		return @palavra
+	end
+
+	def getPl
+		return @palavraJogador
+	end
+
+	def errosr()
+		return @erros
+	end
+
+	def erros(letra)
+		if !(@erros.find do |i|
+			i == letra
+		end)
+			@erros << letra
 		end
 	end
 
@@ -80,6 +104,9 @@ class Jogo
 
 	def fim?
 		@palavraJogador.each do |letra|
+			if @erros.size >= 9
+				return true
+			end
 			if letra == "_"
 				return false
 			end
